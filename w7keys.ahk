@@ -24,7 +24,7 @@ Return
 	scrnWidth  := MonitorWorkAreaRight - MonitorWorkAreaLeft
 	scrnHeight := MonitorWorkAreaBottom - MonitorWorkAreaTop
 	
-	winNewWidth := scrnWidth / 2
+	winNewWidth  := scrnWidth / 2
 	winNewHeight := scrnHeight
 
 	WinGet, winStatus, MinMax, A
@@ -52,4 +52,39 @@ Return
 		WinRestore, A
 	}
 	WinMove, A, , %winNewPoint%, %MonitorWorkAreaTop%, %winNewWidth%, %winNewHeight%
+Return
+
+^#Up::
+	SysGet, MonitorWorkArea, MonitorWorkArea
+	scrnWidth  := MonitorWorkAreaRight - MonitorWorkAreaLeft
+	scrnHeight := MonitorWorkAreaBottom - MonitorWorkAreaTop
+
+	winNewWidth  := scrnWidth
+	winNewHeight := scrnHeight / 2
+
+	WinGet, winStatus, MinMax, A
+	If winStatus = 1
+	{
+		; Unmaximize first, otherwise the window will think it's still maximized later.
+		WinRestore, A
+	}
+	WinMove, A, , %MonitorWorkAreaLeft%, %MonitorWorkAreaTop%, %winNewWidth%, %winNewHeight%
+Return
+
+^#Down::
+	SysGet, MonitorWorkArea, MonitorWorkArea
+	scrnWidth  := MonitorWorkAreaRight - MonitorWorkAreaLeft
+	scrnHeight := MonitorWorkAreaBottom - MonitorWorkAreaTop
+
+	winNewPoint  := scrnHeight / 2
+	winNewWidth  := scrnWidth
+	winNewHeight := scrnHeight / 2
+
+	WinGet, winStatus, MinMax, A
+	If winStatus = 1
+	{
+		; Unmaximize first, otherwise the window will think it's still maximized later.
+		WinRestore, A
+	}
+	WinMove, A, , %MonitorWorkAreaLeft%, %winNewPoint%, %winNewWidth%, %winNewHeight%
 Return
